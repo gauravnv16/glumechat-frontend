@@ -10,7 +10,7 @@ function App() {
     <div className='container'>
       {/* <h1>Glume Chat</h1> */}
       <ChatSide/>
-      <ChatScreen/>
+      {/* <ChatScreen/> */}
       {/* <Login/> */}
     </div>
   )

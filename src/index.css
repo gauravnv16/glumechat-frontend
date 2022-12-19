@@ -132,6 +132,7 @@ body{
     border-radius: 10px;
     margin-left: 20px;
     padding: 20px;
+    /* display: n; */
 }
 
 .chat-screen-header{
@@ -249,6 +250,7 @@ img.chat-screen-body-item-text-avatar{
     padding: 5px;
     position: relative;
     /* left: -50px; */
+    top:10px;
     
     /* margin-left: 10px; */
     width: 80%;

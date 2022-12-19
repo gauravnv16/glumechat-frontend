@@ -20,6 +20,5 @@ export const Login = () => {
             </form>
         </div>
         </>
-
     )
 }
