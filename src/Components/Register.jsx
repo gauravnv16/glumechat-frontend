@@ -6,7 +6,7 @@ import axios from "axios";
 import { API } from "../../DataBase/API";
 
 
-export const Login = () => {
+export const Register = () => {
         //function to get the time
     const navigate = useNavigate();
     const getTime = () => {
@@ -21,10 +21,15 @@ export const Login = () => {
     }
     const AddUser = (e) => {
         e.preventDefault();
+        const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-
+        const id = uuidv4();
         //validate email
+        if(!name){
+            alert("Please enter your name");
+            return;
+        }
         if(!email){
             alert("Please enter your email");
             return;
@@ -36,16 +41,19 @@ export const Login = () => {
 
 
         const user = {
+            name:name,
             email:email,
             password:password,
+            id:id,
         }
         
-        axios.post(`${API}api/users/login`,user).then((res) => {
-            if(res.data.message === "user logged in successfully"){
-                window.sessionStorage.setItem("user",JSON.stringify(res.data.user));
+        axios.post(`${API}api/users/register`,user).then((res) => {
+            if(res.data.message === "user registered successfully"){
                 setInterval(() => {
-                    navigate("/chat");
+                    navigate("/");
                 },2000);
+            } else{
+                alert(res.data.message);
             }
             
         }).catch((err) => {
@@ -66,7 +74,8 @@ export const Login = () => {
                 <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="logo" className="logo"/>
                 Gchat
             </h1>
-            <h3>Login</h3>
+            <h3>Register</h3>
+            <input type="name" placeholder="Enter your name" name="name" id="name"/>
             <input type="email" placeholder="Enter your email" name="email" id="email"/>
             <input type="password" placeholder="Enter your password" name="password" id="password" />
             <button>Login</button>

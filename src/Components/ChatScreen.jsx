@@ -1,35 +1,21 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { API } from '../../DataBase/API';
 
 const ChatScreen = (props = {isChat:false,user:{}}) => {
-    const Messages = [
-        {
-            from:"1",
-            to:"2",
-            text:"Hello",
-            time:"12:20 am",
-        },
-        {
-            from:"2",
-            to:"1",
-            text:"Hi",
-            time:"12:00 am",
-        },
-        {
-            from:"1",
-            to:"2",
-            text:"How are you?",
-            time:"12:00 am",
-        },
-        {
-            from:"2",
-            to:"1",
-            text:"I am fine",
-            time:"12:00 am",
-        },
-    ]
-
-    const [messages,setMessages] = useState(Messages);
+    console.log(props.user)
+    
+    const [messages,setMessages] = useState([]);
+    
+    useEffect(()=> {
+        axios.get(`${API}api/messages`).then((res) => {
+            setMessages(res.data);
+        }).catch((err) => {
+            console.log(err);
+        })
+    },[messages]);
 
     //function to filter message
     const searchMessage = (e) =>{
@@ -61,14 +47,30 @@ const ChatScreen = (props = {isChat:false,user:{}}) => {
         e.preventDefault();
         const input = e.target[0].value;
         if(input.trim() !== ""){
+            const msgObj = {
+                from:props.user.from,
+                to:props.user.to,
+                text:input,
+                time:getTime(),
+            }
+
             setMessages([...messages,{
                 from:props.user.from,
                 to:props.user.to,
                 text:input,
                 time:getTime(),
             }])
+
+            axios.post(`${API}api/messages/sendMessage`,msgObj).then((res) => {
+                console.log(res.data);
+            }).catch((err) => {
+                console.log(err);
+            })
         }
+
+
         e.target[0].value = "";
+        
     }
     const Textmessage = (text,time,style="") => {
         return (
