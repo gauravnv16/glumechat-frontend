@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { API } from "../../DataBase/API";
+import { Link } from "react-router-dom";
 
 
 export const Login = () => {
@@ -70,7 +71,7 @@ export const Login = () => {
             <input type="email" placeholder="Enter your email" name="email" id="email"/>
             <input type="password" placeholder="Enter your password" name="password" id="password" />
             <button>Login</button>
-            <p>New User? <a href="/register">register</a></p>
+            <p>New User? <Link to="/register">register</Link></p>
             </form>
         </div>
         </>

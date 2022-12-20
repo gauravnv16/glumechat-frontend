@@ -40,10 +40,10 @@ export const ChatSide = () => {
             <div className="chat-side-body-item" onClick={() => {
                 setIsChat(true);
                 setToUser({name:username,status:"online",to:to,from:from});
-                console.log({name:username,status:"online"});
+                // console.log({name:username,status:"online"});
             }}>
                 <div className="flex">
-                    <img src={`https://avatars.dicebear.com/api/avataaars/${uuidv4()}.svg `} alt="" className="chat-side-body-item-avatar"/>
+                    <img src={`https://avatars.dicebear.com/api/avataaars/${to}.svg `} alt="" className="chat-side-body-item-avatar"/>
                         <div className="chat-side-body-item-text">
                             <h3 name="username">{ username }</h3>
                             <span className="chat-side-body-item-text-message">{ lastmessage }</span>
@@ -58,7 +58,7 @@ export const ChatSide = () => {
            <div className="chat-side">
                 <div className="chat-side-header">
                 <h1>
-                    <img src={`https://avatars.dicebear.com/api/avataaars/${uuidv4()}.svg `}alt="" className="chat-side-header-avatar"/>
+                    <img src={`https://avatars.dicebear.com/api/avataaars/${currentUser.id}.svg `}alt="" className="chat-side-header-avatar"/>
                         <div className="chat-side-header-text">
                         <h1>{ currentUser.name }</h1>
                         <span className="status online">Online</span>
