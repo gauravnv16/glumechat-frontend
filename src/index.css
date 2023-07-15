@@ -5,11 +5,11 @@
     padding: 0;
     box-sizing: border-box;
     /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif */
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
 }
-body{
+/* body{
     background-color: #e9e9e9;
-}
+} */
 .container{
     display: flex;
     flex-direction: row;
@@ -262,7 +262,6 @@ img.chat-screen-body-item-text-avatar{
     display: flex;
     flex-direction: column;
     background-color: rgb(255, 255, 255);
-    /* color: white; */
     padding: 50px 100px;
     border-radius: 30px;
 }
@@ -274,7 +273,6 @@ img.chat-screen-body-item-text-avatar{
     width: 300px;
     padding: 10px;
     margin: 10px;
-    /* width: 50%; */
 }
 .enter-name button{
     border: none;
@@ -282,7 +280,7 @@ img.chat-screen-body-item-text-avatar{
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
-    background-color: #333;
+    /* background-color: #333; */
     color: white;
     cursor: pointer;
     width: 300px;
