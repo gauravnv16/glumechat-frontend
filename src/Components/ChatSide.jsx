@@ -1,15 +1,18 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { API } from '../../DataBase/API';
 import ChatScreen from './ChatScreen';
+import { userContext } from './UserContext';
+import { useNavigate } from 'react-router';
 
 export const ChatSide = () => {
     const [isChat,setIsChat] = useState(false);
     const [to_user,setToUser] = useState({});
+    const navigate = useNavigate();
+    // const currentUser = JSON.parse(window.sessionStorage.getItem("user"));
+    const currentUser = useContext(userContext).user;
 
-    const currentUser = JSON.parse(window.sessionStorage.getItem("user"));
-    console.log(currentUser)
     const [users,setUsers] = useState([]);
 
     useEffect(() => {
@@ -21,8 +24,6 @@ export const ChatSide = () => {
             console.log(err);
         })
     },[])
-    
-    // console.log(users)
     const searchUser = (e) => {
         let input = e.target.value.toLowerCase();
         let x = document.getElementsByClassName("chat-side-body-item");
@@ -53,40 +54,45 @@ export const ChatSide = () => {
             </div>
         )
     }
+
     return (
         <>
-           <div className="chat-side">
-                <div className="chat-side-header">
+           <div className="chat-side" style={{
+                minWidth:"300px",
+           }}>
+                <div className="flex flex-col">
+                <header className='flex items-center justify-between'>
                 <h1>
-                    <img src={`https://avatars.dicebear.com/api/avataaars/${currentUser.id}.svg `}alt="" className="chat-side-header-avatar"/>
-                        <div className="chat-side-header-text">
-                        <h1>{ currentUser.name }</h1>
-                        <span className="status online">Online</span>
+                    <div>
+                        <h3 className='text-sm text-gray-800'>{ currentUser.name }</h3>
+                        <span className="text-xs text-green-500">Online</span>
                     </div>
                 </h1>
-                    
-                    <h1>Chats</h1>
-                    <div className="chat-side-header-search">
-                        <i className="fas fa-search"></i>
-                        <input type="text" placeholder="Search" onChange={ searchUser }/>
+                <section>
+                    <button className="text-xs bg-red-500 text-white px-3 py-2 rounded" onClick={() => {
+                        window.sessionStorage.removeItem("user");
+                        navigate("/");
+                    }}>Logout</button>
+                </section>
+            </header>
+            <hr className='my-2'/>
+                    <h3 className='m-2 text-xl font-bold'>Chats</h3>
+                    <div className='border-2 border-gray-100 flex items-center p-2 my-2 rounded'>
+                        <i className="fas fa-search mr-2 text-gray-500"></i> 
+                        <input type="text" placeholder="Search" onChange={ searchUser } className="outline-none w-full" />
                     </div>
                 </div>
+                <hr className='my-2'/>
                 <div className="chat-side-body">
 
                     {
-                        users.map((user) => {
+                        users.map((user,index) => {
                             if(user.id !== currentUser.id) 
-                            return sideUser(user.name,user.lastmessage,user.time,user.id,currentUser.id)
+                            return <span key={index}>{sideUser(user.name,user.lastmessage,user.time,user.id,currentUser.id)}</span>
                         })
                     }
                     
                     
-                </div>
-                <div className="chat-side-footer">
-                    {/* <img src={`https://avatars.dicebear.com/api/avataaars/${uuidv4()}.svg`} alt="" className="chat-side-footer-avatar"/> */}
-                    <div className='chat-side-footer-text'>
-                    
-                    </div>
                 </div>
            </div>
             <ChatScreen isChat={isChat} user={to_user}/>
